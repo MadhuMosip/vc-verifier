@@ -46,6 +46,7 @@ class CredentialsVerifier {
                 ERROR_CODE_VC_EXPIRED
             )
         ) {
+            logger.warning("Credential validation failed")
             return VerificationResult(
                 false,
                 validationStatus.validationMessage,
@@ -61,6 +62,7 @@ class CredentialsVerifier {
                     validationStatus.validationErrorCode
                 )
             }
+            logger.warning("Credential verification failed")
             return VerificationResult(
                 false,
                 ERROR_MESSAGE_VERIFICATION_FAILED,
@@ -68,6 +70,7 @@ class CredentialsVerifier {
             )
 
         } catch (e: Exception) {
+            logger.warning("Credential verification failed")
             val errorCode = validationStatus.validationErrorCode.takeIf { !it.isNullOrEmpty() }
                 ?: ERROR_CODE_VERIFICATION_FAILED
             VerificationResult(false, "$EXCEPTION_DURING_VERIFICATION${e.message}", errorCode)
